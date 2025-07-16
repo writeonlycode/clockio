@@ -1,5 +1,5 @@
-import { SignInForm } from "@/components/auth/sign-in-form";
+import { SignInDialog } from "@/components/auth/sign-in-dialog";
 
-export default async function SignUpPage() {
-  return <SignInForm />;
+export default function Page() {
+  return <SignInDialog />;
 }

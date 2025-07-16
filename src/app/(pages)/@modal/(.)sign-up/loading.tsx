@@ -1,9 +1,5 @@
-import { Loader2Icon } from "lucide-react";
+import LoadingDialog from "@/components/utils/loading-dialog";
 
 export default async function SignUpLoading() {
-  return (
-    <div className="flex items-center justify-center">
-      <Loader2Icon className="animate-spin text-destructive-foreground" />
-    </div>
-  );
+  return <LoadingDialog />;
 }
