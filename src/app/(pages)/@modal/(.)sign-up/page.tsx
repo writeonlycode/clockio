@@ -1,5 +1,5 @@
-import { SignUpDialog } from "@/components/auth/sign-up-dialog";
+import { SignUpForm } from "@/components/auth/sign-up-form";
 
-export default function Page() {
-  return <SignUpDialog />;
+export default async function SignUpPage() {
+  return <SignUpForm />;
 }

@@ -8,7 +8,7 @@ export default async function LoadingDialog() {
       <DialogContent>
         <DialogHeader>
           <VisuallyHidden>
-            <DialogTitle className="text-center">Loaging</DialogTitle>
+            <DialogTitle className="text-center">Loaging Content</DialogTitle>
           </VisuallyHidden>
           <VisuallyHidden>
             <DialogDescription className="text-center">Await until we load the content!</DialogDescription>
