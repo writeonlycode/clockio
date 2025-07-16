@@ -21,7 +21,9 @@ export default async function PageTodos({ searchParams }: { searchParams: Promis
     <div className="mx-auto my-8 flex w-full max-w-prose grow flex-col px-4 gap-2">
       <TasksCreate />
       <div className="flex flex-col gap-2 mb-4">
-        {data?.map((task) => <TaskItem key={task.id} href={"/tasks/" + task.id + "?limit=" + limit} {...task} />)}
+        {data?.map((task) => (
+          <TaskItem key={task.id} href={"/tasks/" + task.id + "?limit=" + limit} {...task} />
+        ))}
       </div>
       <div className="text-center text-sm mb-2">
         Showing {data?.length} of {count} entries
