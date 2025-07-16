@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 export default async function LoadingDialog() {
   return (
     <Dialog defaultOpen>
-      <DialogContent>
+      <DialogContent hideOverlay>
         <DialogHeader>
           <VisuallyHidden>
             <DialogTitle className="text-center">Loaging Content</DialogTitle>
