@@ -7,7 +7,6 @@ export default async function TodoPage({ params }: { params: Promise<{ id: strin
   const { data } = await getTask({}, id);
   const defaultValues = formatResponse(data || {});
 
-  await sleep(2000);
-
+  await sleep(3000);
   return <TasksUpdate id={id} defaultValues={defaultValues} onCloseRedirect="/tasks" />;
 }

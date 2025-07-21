@@ -24,7 +24,7 @@ export function SignUpDialog({ onCloseRedirect }: { onCloseRedirect?: string }) 
   return (
     <>
       <Dialog defaultOpen open={open} onOpenChange={handleClose}>
-        <DialogContent>
+        <DialogContent hideOverlay>
           <DialogHeader>
             <DialogTitle className="text-center">Sign Up</DialogTitle>
             <DialogDescription className="text-center">Sign up for a new account!</DialogDescription>

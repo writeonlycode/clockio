@@ -24,7 +24,7 @@ export function SignInDialog({ onCloseRedirect }: { onCloseRedirect?: string }) 
   return (
     <>
       <Dialog defaultOpen open={open} onOpenChange={handleClose}>
-        <DialogContent>
+        <DialogContent hideOverlay>
           <DialogHeader>
             <DialogTitle className="text-center">Sign In</DialogTitle>
             <DialogDescription className="text-center">Sign in to your account!</DialogDescription>
