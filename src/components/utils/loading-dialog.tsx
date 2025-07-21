@@ -1,10 +1,24 @@
+"use client";
+
 import { Loader2Icon } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default async function LoadingDialog() {
+export default function LoadingDialog({ onCloseRedirect }: { onCloseRedirect?: string }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleClose = () => {
+    if (onCloseRedirect) {
+      router.push(onCloseRedirect + "?" + searchParams.toString(), { scroll: false });
+    } else {
+      router.back();
+    }
+  };
+
   return (
-    <Dialog defaultOpen>
+    <Dialog defaultOpen onOpenChange={handleClose}>
       <DialogContent hideOverlay>
         <DialogHeader>
           <VisuallyHidden>

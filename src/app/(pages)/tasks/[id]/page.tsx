@@ -1,5 +1,5 @@
 import { getTask } from "@/lib/actions/tasks";
-import { formatResponse, sleep } from "@/lib/utils";
+import { formatResponse } from "@/lib/utils";
 import { TasksUpdate } from "@/components/tasks/tasks-update";
 
 export default async function TodoPage({ params }: { params: Promise<{ id: string }> }) {
@@ -7,6 +7,5 @@ export default async function TodoPage({ params }: { params: Promise<{ id: strin
   const { data } = await getTask({}, id);
   const defaultValues = formatResponse(data || {});
 
-  await sleep(3000);
   return <TasksUpdate id={id} defaultValues={defaultValues} onCloseRedirect="/tasks" />;
 }
