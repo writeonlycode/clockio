@@ -5,7 +5,13 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SignInForm } from "./sign-in-form";
 
-export function SignInDialog({ onCloseRedirect }: { onCloseRedirect?: string }) {
+export function SignInDialog({
+  onCloseRedirect,
+  onSubmitRedirect,
+}: {
+  onCloseRedirect?: string;
+  onSubmitRedirect?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -29,7 +35,7 @@ export function SignInDialog({ onCloseRedirect }: { onCloseRedirect?: string }) 
             <DialogTitle className="text-center">Sign In</DialogTitle>
             <DialogDescription className="text-center">Sign in to your account!</DialogDescription>
           </DialogHeader>
-          <SignInForm />
+          <SignInForm redirectPath={onSubmitRedirect} />
         </DialogContent>
       </Dialog>
     </>

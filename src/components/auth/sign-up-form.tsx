@@ -37,10 +37,10 @@ export function SignUpForm({ redirectPath }: Props) {
       return;
     }
 
-    if (redirectPath) {
-      router.push(redirectPath);
-      return;
-    }
+    //if (redirectPath) {
+    //  router.push(redirectPath);
+    //  return;
+    //}
 
     router.back();
   };

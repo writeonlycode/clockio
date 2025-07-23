@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <main className="flex grow flex-col justify-center">
       <div className="mx-auto w-full max-w-sm">
-        <SignUpForm redirectPath="/" />
+        <SignUpForm redirectPath="/tasks" />
       </div>
     </main>
   );
