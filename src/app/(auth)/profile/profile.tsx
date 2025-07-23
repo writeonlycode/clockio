@@ -9,6 +9,7 @@ import { updateProfile } from "@/lib/schemas/profiles";
 import { UpdateProfile } from "@/types/profiles";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError, PostgrestError } from "@supabase/supabase-js";
+import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -68,7 +69,8 @@ export function Profile({ defaultValues }: { defaultValues: UpdateProfile }) {
         />
         {error && <p className="text-center text-sm text-red-500">{error.message}</p>}
         <Button type="submit" disabled={pending}>
-          Update Profile
+          {form.formState.isSubmitting && <Loader2Icon className="animate-spin" />}
+          Update
         </Button>
       </form>
     </Form>
