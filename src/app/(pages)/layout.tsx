@@ -1,10 +1,5 @@
-type Props = Readonly<{ children: React.ReactNode; modal: React.ReactNode }>;
+type Props = Readonly<{ children: React.ReactNode }>;
 
-export default function Layout({ children, modal }: Props) {
-  return (
-    <>
-      {children}
-      {modal}
-    </>
-  );
+export default function Layout({ children }: Props) {
+  return <>{children}</>;
 }
