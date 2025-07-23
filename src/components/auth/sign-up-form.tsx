@@ -19,7 +19,7 @@ interface Props extends React.ComponentPropsWithoutRef<"div"> {
   redirectPath?: string;
 }
 
-export function SignUpForm({}: Props) {
+export function SignUpForm({ redirectPath }: Props) {
   const [error, setError] = useState<AuthError | null>(null);
   const [pending, setPending] = useState(false);
   const router = useRouter();
@@ -37,10 +37,10 @@ export function SignUpForm({}: Props) {
       return;
     }
 
-    //if (redirectPath) {
-    //  router.push(redirectPath);
-    //  return;
-    //}
+    if (redirectPath) {
+      router.push(redirectPath);
+      return;
+    }
 
     router.back();
   };

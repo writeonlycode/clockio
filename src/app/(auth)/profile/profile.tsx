@@ -43,9 +43,9 @@ export function Profile({ defaultValues }: { defaultValues: UpdateProfile }) {
           name="display_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" disabled={pending} {...field} />
+                <Input disabled={pending} {...field} />
               </FormControl>
               <FormDescription>This is your public display name.</FormDescription>
               <FormMessage />
@@ -59,7 +59,7 @@ export function Profile({ defaultValues }: { defaultValues: UpdateProfile }) {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea rows={10} placeholder="Lorem ipsum..." disabled={pending} {...field} />
+                <Textarea rows={10} disabled={pending} {...field} />
               </FormControl>
               <FormDescription>This is your public description.</FormDescription>
               <FormMessage />

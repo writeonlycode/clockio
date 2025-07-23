@@ -19,7 +19,7 @@ interface Props extends React.ComponentPropsWithoutRef<"div"> {
   redirectPath?: string;
 }
 
-export function SignInForm({}: Props) {
+export function SignInForm({ redirectPath }: Props) {
   const [error, setError] = useState<AuthError | null>(null);
   const [pending, setPending] = useState(false);
   const router = useRouter();
@@ -37,10 +37,10 @@ export function SignInForm({}: Props) {
       return;
     }
 
-    //if (redirectPath) {
-    //  router.push(redirectPath);
-    //  return;
-    //}
+    if (redirectPath) {
+      router.push(redirectPath);
+      return;
+    }
 
     router.back();
   };
@@ -62,12 +62,14 @@ export function SignInForm({}: Props) {
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <Link
-              href={options.links.auth.resetPassword}
-              className="ml-auto inline-block text-sm leading-none underline-offset-4 hover:underline"
-            >
-              Forgot your password?
-            </Link>
+            {
+              //<Link
+              //  href={options.links.auth.resetPassword}
+              //  className="ml-auto inline-block text-sm leading-none underline-offset-4 hover:underline"
+              //>
+              //  Forgot your password?
+              //</Link>
+            }
           </div>
           <Input id="password" type="password" disabled={pending} {...register("password")} />
           {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
