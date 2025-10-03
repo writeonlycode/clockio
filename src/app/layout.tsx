@@ -24,7 +24,9 @@ type Props = Readonly<{ children: React.ReactNode; navbar: React.ReactNode }>;
 export default function LayoutRoot({ children, navbar }: Props) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} dark flex min-h-screen flex-col antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} dark flex min-h-screen flex-col antialiased overflow-x-hidden`}
+      >
         {navbar}
         {children}
       </body>

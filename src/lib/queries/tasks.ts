@@ -8,9 +8,9 @@ import {
   QueryTasksUpdateResponse,
   QueryTasksDeleteResponse,
 } from "@/types/tasks";
-import { sleep } from "../utils";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { mapTask } from "../adapters/tasks";
+import { revalidateTasks } from "../actions/tasks";
 
 export async function queryTasks(supabase: SupabaseClient, options: TableQueryOptions): Promise<QueryTasksResponse> {
   const query = supabase.from("tasks").select("*", { count: options.includeCount });
@@ -28,6 +28,41 @@ export async function queryTasks(supabase: SupabaseClient, options: TableQueryOp
     const { from, to } = options.range;
     query.range(from, to);
   }
+
+  const response = await query;
+
+  if (response.error) {
+    console.log("Supabase Error: ", response.error);
+  }
+
+  const data = response.data ? response.data?.map(mapTask) : undefined;
+  const error = response.error ? Error(response.error.message) : undefined;
+  const count = response.count ? response.count : undefined;
+
+  return { data, count, error };
+}
+
+export async function queryOrphanTasks(
+  supabase: SupabaseClient,
+  options: TableQueryOptions,
+): Promise<QueryTasksResponse> {
+  const query = supabase.from("tasks").select("*", { count: options.includeCount });
+
+  if (options.order) {
+    const { column, ascending, nullsFirst } = options.order;
+    query.order(column, { ascending, nullsFirst });
+  }
+
+  if (options.limit) {
+    query.limit(options.limit);
+  }
+
+  if (options.range) {
+    const { from, to } = options.range;
+    query.range(from, to);
+  }
+
+  query.is("task_list_id", null);
 
   const response = await query;
 
@@ -61,8 +96,8 @@ export async function queryTask(
 }
 
 export async function insertTask(supabase: SupabaseClient, payload: TaskInsert): Promise<QueryTasksInsertResponse> {
+  console.log("Inserting task...");
   const response = await supabase.from("tasks").insert(payload).select().single();
-  await sleep(2000);
 
   if (response.error) {
     console.log("Supabase Error: ", response.error);
@@ -71,6 +106,8 @@ export async function insertTask(supabase: SupabaseClient, payload: TaskInsert):
   const data = response.data ? mapTask(response.data) : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
+
+  revalidateTasks();
 
   return { data, count, error };
 }
@@ -81,7 +118,6 @@ export async function queryUpdateTask(
   id: string,
 ): Promise<QueryTasksUpdateResponse> {
   const response = await supabase.from("tasks").update(payload).eq("id", id).select().single();
-  await sleep(2000);
 
   if (response.error) {
     console.log("Supabase Error: ", response.error);
@@ -90,13 +126,14 @@ export async function queryUpdateTask(
   const data = response.data ? mapTask(response.data) : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
+
+  revalidateTasks();
 
   return { data, count, error };
 }
 
 export async function queryDeleteTask(supabase: SupabaseClient, id: string): Promise<QueryTasksDeleteResponse> {
   const response = await supabase.from("tasks").delete().eq("id", id).select().single();
-  await sleep(2000);
 
   if (response.error) {
     console.log("Supabase Error: ", response.error);
@@ -105,6 +142,8 @@ export async function queryDeleteTask(supabase: SupabaseClient, id: string): Pro
   const data = response.data ? mapTask(response.data) : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
+
+  revalidateTasks();
 
   return { data: data, count, error };
 }

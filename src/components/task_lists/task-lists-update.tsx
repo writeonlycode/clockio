@@ -16,25 +16,22 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { updateTask } from "@/lib/actions/tasks";
-import { taskUpdateScheme } from "@/lib/schemas/tasks";
-import { TaskUpdate } from "@/types/tasks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { TaskItemStatus } from "./tasks-item-status";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TasksDelete } from "./tasks-delete";
+import { updateTaskList } from "@/lib/actions/task_lists";
+import { TaskListUpdate } from "@/types/task_lists";
+import { taskListUpdateScheme } from "@/lib/schemas/task_lists";
 
-export function TasksUpdate({
+export function TaskListsUpdate({
   id,
   defaultValues,
   onCloseRedirect,
 }: {
   id: string;
-  defaultValues: TaskUpdate;
+  defaultValues: TaskListUpdate;
   onCloseRedirect?: string;
 }) {
   const router = useRouter();
@@ -45,8 +42,8 @@ export function TasksUpdate({
 
   const [error, setError] = useState<Error | undefined>();
 
-  const form = useForm<TaskUpdate>({
-    resolver: zodResolver(taskUpdateScheme),
+  const form = useForm<TaskListUpdate>({
+    resolver: zodResolver(taskListUpdateScheme),
     defaultValues,
   });
 
@@ -73,9 +70,9 @@ export function TasksUpdate({
     }
   };
 
-  async function onSubmit(values: TaskUpdate) {
+  async function onSubmit(values: TaskListUpdate) {
     setError(undefined);
-    const { error } = await updateTask(values, id);
+    const { error } = await updateTaskList(values, id);
     setError(error);
   }
 
@@ -107,44 +104,10 @@ export function TasksUpdate({
                       <Input
                         {...field}
                         disabled={form.formState.isSubmitting}
-                        placeholder="Task title..."
+                        placeholder="List title..."
                         className="h-auto border-none text-4xl md:text-4xl inline text-ellipsis"
                       />
                     </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      disabled={form.formState.isSubmitting}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="border-none text-white font-bold">
-                          <SelectValue placeholder="Status" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="todo">
-                          <TaskItemStatus status="todo" />
-                        </SelectItem>
-                        <SelectItem value="in_progress">
-                          <TaskItemStatus status="in_progress" />
-                        </SelectItem>
-                        <SelectItem value="done">
-                          <TaskItemStatus status="done" />
-                        </SelectItem>
-                        <SelectItem value="cancelled">
-                          <TaskItemStatus status="cancelled" />
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -159,7 +122,7 @@ export function TasksUpdate({
                         {...field}
                         className="h-auto border-none"
                         disabled={form.formState.isSubmitting}
-                        placeholder="Task description..."
+                        placeholder="List description..."
                         autoFocus
                       />
                     </FormControl>
@@ -174,9 +137,7 @@ export function TasksUpdate({
               </Button>
             </form>
           </Form>
-          <div className="absolute top-4 right-4">
-            <TasksDelete id={id} />
-          </div>
+          <div className="absolute top-4 right-4"></div>
         </DialogContent>
       </Dialog>
       <AlertDialog open={alertDialogOpen} onOpenChange={() => {}}>

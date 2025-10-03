@@ -2,7 +2,14 @@
 
 import { TableQueryOptions } from "@/types/supabase-utils";
 
-import { insertTask, queryDeleteTask, queryTask, queryTasks, queryUpdateTask } from "../queries/tasks";
+import {
+  insertTask,
+  queryDeleteTask,
+  queryOrphanTasks,
+  queryTask,
+  queryTasks,
+  queryUpdateTask,
+} from "../queries/tasks";
 import { createClient } from "../supabase/server";
 import {
   QueryTasksDeleteResponse,
@@ -26,6 +33,17 @@ export async function getTasks(options: TableQueryOptions): Promise<QueryTasksRe
   return { data, count, error };
 }
 
+export async function getOrphanTasks(options: TableQueryOptions): Promise<QueryTasksResponse> {
+  const supabase = await createClient();
+  const { data, count, error } = await queryOrphanTasks(supabase, options);
+
+  if (error) {
+    console.log("Supabase Error: ", error);
+  }
+
+  return { data, count, error };
+}
+
 export async function getTask(options: TableQueryOptions, id: string): Promise<QueryTasksSingleResponse> {
   const supabase = await createClient();
   const response = await queryTask(supabase, options, id);
@@ -38,6 +56,7 @@ export async function getTask(options: TableQueryOptions, id: string): Promise<Q
 }
 
 export async function createTask(payload: TaskInsert): Promise<QueryTasksInsertResponse> {
+  console.log("Creating task...");
   const supabase = await createClient();
   const response = await insertTask(supabase, payload);
 
@@ -47,6 +66,10 @@ export async function createTask(payload: TaskInsert): Promise<QueryTasksInsertR
 
   revalidatePath("/tasks");
   return response;
+}
+
+export async function revalidateTasks() {
+  revalidatePath("/tasks");
 }
 
 export async function updateTask(payload: TaskUpdate, id: string): Promise<QueryTasksUpdateResponse> {

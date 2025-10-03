@@ -42,6 +42,10 @@ export const updateSession = async (request: NextRequest) => {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
+  if (request.nextUrl.pathname.startsWith("/lists") && !isSignedIn) {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
+  }
+
   // Authentication routes. If the user is already signed in, they can't access these routes.
   if (request.nextUrl.pathname.startsWith("/sign-in") && isSignedIn) {
     return NextResponse.redirect(new URL("/", request.url));

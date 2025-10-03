@@ -6,6 +6,10 @@ export const options = {
         label: "Tasks",
         href: "/tasks",
       },
+      {
+        label: "Lists",
+        href: "/lists",
+      },
     ],
   },
   links: {

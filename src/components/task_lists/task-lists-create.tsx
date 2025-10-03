@@ -1,27 +1,18 @@
 "use client";
 
-import { taskInsertScheme } from "@/lib/schemas/tasks";
+import { taskListInsertScheme } from "@/lib/schemas/task_lists";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { TaskInsert } from "@/types/tasks";
+import { TaskListInsert } from "@/types/task_lists";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createTask, revalidateTasks } from "@/lib/actions/tasks";
-import { insertTask } from "@/lib/queries/tasks";
-import { createClient } from "@/lib/supabase/client";
-import { revalidatePath } from "next/cache";
+import { createTaskList } from "@/lib/actions/task_lists";
 
-export default function TasksCreate({
-  task_list_id,
-  task_list_order,
-}: {
-  task_list_id?: string;
-  task_list_order?: number;
-}) {
-  const form = useForm({ resolver: zodResolver(taskInsertScheme), defaultValues: { title: "" } });
+export default function TaskListsCreate() {
+  const form = useForm({ resolver: zodResolver(taskListInsertScheme), defaultValues: { title: "", description: "" } });
 
   const {
     reset,
@@ -36,10 +27,9 @@ export default function TasksCreate({
     }
   }, [reset, error, isSubmitSuccessful]);
 
-  async function onSubmit({ title, description, status }: TaskInsert) {
+  async function onSubmit({ title, description }: TaskListInsert) {
     setError(undefined);
-    console.log("Submitting form...");
-    const { error } = await insertTask(createClient(), { title, description, status, task_list_id, task_list_order });
+    const { error } = await createTaskList({ title, description });
     setError(error);
   }
 
@@ -54,7 +44,7 @@ export default function TasksCreate({
               <FormItem className="grow">
                 <FormControl>
                   <Input
-                    placeholder="New task..."
+                    placeholder="New list..."
                     {...field}
                     disabled={form.formState.isSubmitting}
                     className="rounded-e-none"
