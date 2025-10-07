@@ -12,7 +12,6 @@ export function useTasks(
   const [data, setData] = useState(initialData);
   const [count, setCount] = useState(initialCount);
   const [loading, setLoading] = useState(false);
-  const [initialRender, setInitialRender] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
@@ -26,12 +25,8 @@ export function useTasks(
       setLoading(false);
     };
 
-    if (initialRender) {
-      setInitialRender(false);
-    } else {
-      fetch();
-    }
-  }, [initialData, includeCount, limit]);
+    fetch();
+  }, [initialData, limit, includeCount, order]);
 
   return { data, count, loading };
 }
