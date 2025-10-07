@@ -19,7 +19,7 @@ export default function LoadingDialogInner({ onCloseRedirect }: { onCloseRedirec
 
   return (
     <Dialog defaultOpen onOpenChange={handleClose}>
-      <DialogContent hideOverlay>
+      <DialogContent hideOverlay hideBorder>
         <DialogHeader>
           <VisuallyHidden>
             <DialogTitle className="text-center">Loaging Content</DialogTitle>
