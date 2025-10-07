@@ -1,4 +1,6 @@
-import { getOrphanTasks } from "@/lib/actions/tasks";
+export const dynamic = "force-dynamic";
+
+import { getTasks } from "@/lib/actions/tasks";
 import { TableQueryOptions } from "@/types/supabase-utils";
 import TaskItem from "@/components/tasks/tasks-item";
 import TasksCreate from "@/components/tasks/tasks-create";
@@ -14,7 +16,10 @@ export default async function PageLists() {
     order: { column: "created_at", ascending: false },
   };
 
-  const { data } = await getOrphanTasks(queryOptions);
+  console.log("Getting orphan tasks...");
+  const { data } = await getTasks(queryOptions);
+
+  console.log("Getting task lists...");
   const { data: listData } = await getTaskLists(queryOptions);
 
   return (
@@ -34,7 +39,9 @@ export default async function PageLists() {
             <TasksCreate task_list_id={task_list.id} task_list_order={0} />
           </div>
           <div className="flex flex-col gap-2 mb-4 px-3 overflow-y-auto grow">
-            {task_list.tasks?.map((task) => <TaskItem key={task.id} href={"/lists/tasks/" + task.id} {...task} />)}
+            {task_list.tasks?.map((task) => (
+              <TaskItem key={task.id} href={"/lists/tasks/" + task.id} {...task} />
+            ))}
           </div>
         </Card>
       ))}
@@ -45,7 +52,9 @@ export default async function PageLists() {
         </CardHeader>
         <div className="flex flex-col gap-2 mb-4 px-3">
           <TasksCreate task_list_order={0} />
-          {data?.map((task) => <TaskItem key={task.id} href={"/lists/tasks/" + task.id} {...task} />)}
+          {data?.map((task) => (
+            <TaskItem key={task.id} href={"/lists/tasks/" + task.id} {...task} />
+          ))}
         </div>
       </Card>
       <div className="min-w-80 max-w-80 mb-8">

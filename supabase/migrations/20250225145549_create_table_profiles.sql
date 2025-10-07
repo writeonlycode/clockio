@@ -1,3 +1,5 @@
+CREATE EXTENSION "uuid-ossp";
+
 -- Create a table for public profiles
 create table profiles (
   id uuid references auth.users on delete cascade not null primary key,

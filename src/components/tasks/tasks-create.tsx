@@ -9,10 +9,8 @@ import { Input } from "@/components/ui/input";
 import { TaskInsert } from "@/types/tasks";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createTask, revalidateTasks } from "@/lib/actions/tasks";
 import { insertTask } from "@/lib/queries/tasks";
 import { createClient } from "@/lib/supabase/client";
-import { revalidatePath } from "next/cache";
 
 export default function TasksCreate({
   task_list_id,

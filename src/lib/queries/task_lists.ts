@@ -9,7 +9,6 @@ import {
   QueryTaskListsDeleteResponse,
 } from "@/types/task_lists";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { mapTaskList } from "../adapters/task_lists";
 
 export async function queryTaskLists(
   supabase: SupabaseClient,
@@ -37,7 +36,7 @@ export async function queryTaskLists(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? response.data?.map(mapTaskList) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -55,7 +54,7 @@ export async function queryTaskList(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTaskList(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -72,7 +71,7 @@ export async function insertTaskList(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTaskList(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -90,7 +89,7 @@ export async function queryUpdateTaskList(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTaskList(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -104,7 +103,7 @@ export async function queryDeleteTaskList(supabase: SupabaseClient, id: string):
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTaskList(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
