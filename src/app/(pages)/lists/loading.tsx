@@ -1,5 +1,5 @@
-import LoadingDialog from "@/components/utils/loading-dialog";
+import LoadingDialog from "@/components/ui/loading-dialog";
 
 export default async function TodoLoading() {
-  return <LoadingDialog onCloseRedirect="/tasks" />;
+  return <LoadingDialog onCloseRedirect="/lists" />;
 }

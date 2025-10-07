@@ -1,9 +1,9 @@
-type Props = Readonly<{ children: React.ReactNode; tasks: React.ReactNode }>;
+type Props = Readonly<{ children: React.ReactNode; lists: React.ReactNode }>;
 
-export default function Layout({ children, tasks }: Props) {
+export default function Layout({ children, lists }: Props) {
   return (
     <>
-      {tasks}
+      {lists}
       {children}
     </>
   );
