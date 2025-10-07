@@ -5,7 +5,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoadingDialog({ onCloseRedirect }: { onCloseRedirect?: string }) {
+export default function LoadingDialogInner({ onCloseRedirect }: { onCloseRedirect?: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

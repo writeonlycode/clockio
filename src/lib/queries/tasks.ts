@@ -35,7 +35,7 @@ export async function queryTasks(supabase: SupabaseClient, options: TableQueryOp
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? response.data?.map(mapTask) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -70,7 +70,7 @@ export async function queryOrphanTasks(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? response.data?.map(mapTask) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
