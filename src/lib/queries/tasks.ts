@@ -9,7 +9,6 @@ import {
   QueryTasksDeleteResponse,
 } from "@/types/tasks";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { mapTask } from "../adapters/tasks";
 import { revalidateTasks } from "../actions/tasks";
 
 export async function queryTasks(supabase: SupabaseClient, options: TableQueryOptions): Promise<QueryTasksResponse> {
@@ -88,7 +87,7 @@ export async function queryTask(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTask(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -103,7 +102,7 @@ export async function insertTask(supabase: SupabaseClient, payload: TaskInsert):
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTask(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -123,7 +122,7 @@ export async function queryUpdateTask(
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTask(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 
@@ -139,7 +138,7 @@ export async function queryDeleteTask(supabase: SupabaseClient, id: string): Pro
     console.log("Supabase Error: ", response.error);
   }
 
-  const data = response.data ? mapTask(response.data) : undefined;
+  const data = response.data ? response.data : undefined;
   const error = response.error ? Error(response.error.message) : undefined;
   const count = response.count ? response.count : undefined;
 

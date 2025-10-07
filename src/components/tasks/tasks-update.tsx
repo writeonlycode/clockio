@@ -86,7 +86,7 @@ export function TasksUpdate({
   return (
     <>
       <Dialog defaultOpen open={open} onOpenChange={handleOpenChange}>
-        <DialogContent hideOverlay>
+        <DialogContent>
           <DialogHeader>
             <VisuallyHidden>
               <DialogTitle>{defaultValues?.title}</DialogTitle>
